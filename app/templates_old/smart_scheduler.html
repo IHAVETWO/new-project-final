@@ -1,0 +1,306 @@
+{% extends 'base.html' %}
+{% block title %}Smart Appointment Scheduler - BrightSmile{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-primary">Smart Appointment Scheduler</h1>
+                <p class="lead text-muted">AI-powered scheduling based on your dental history and preferences</p>
+            </div>
+
+            <!-- Navigation Buttons -->
+            {% include 'navigation_buttons.html' %}
+
+            <!-- User Statistics Card -->
+            <div class="card shadow-lg mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Your Dental Profile</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <div class="stat-item">
+                                <h3 class="text-primary">{{ user_stats.total_appointments|default('') }}</h3>
+                                <p class="text-muted">Total Appointments</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="stat-item">
+                                <h3 class="text-success">{{ user_stats.completed_appointments|default('') }}</h3>
+                                <p class="text-muted">Completed</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="stat-item">
+                                <h3 class="text-info">${{ '%.2f'|format(user_stats.total_spent|default(0)) }}</h3>
+                                <p class="text-muted">Total Spent</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="stat-item">
+                                <h3 class="text-warning">{{ user_stats.most_common_procedure|default('N/A') }}</h3>
+                                <p class="text-muted">Most Common</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Recommendations -->
+            <div class="card shadow-lg mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-robot me-2"></i>AI Recommendations</h5>
+                </div>
+                <div class="card-body">
+                    {% if recommendations is iterable and recommendations|length > 0 %}
+                        <div class="row">
+                            {% for recommendation in recommendations %}
+                            <div class="col-md-6 mb-3">
+                                <div class="alert alert-info border-0">
+                                    <i class="fas fa-lightbulb text-warning me-2"></i>
+                                    {{ recommendation|default('') }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No specific recommendations at this time. Keep up the good work!</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Smart Scheduling Form -->
+            <div class="card shadow-lg">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-calendar-plus me-2"></i>Book Your Appointment</h5>
+                </div>
+                <div class="card-body">
+                    <form id="appointmentForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="serviceType" class="form-label">Service Type</label>
+                                <select class="form-select" id="serviceType" name="service_type" required>
+                                    <option value="">Select a service...</option>
+                                    <option value="checkup">Regular Checkup</option>
+                                    <option value="cleaning">Dental Cleaning</option>
+                                    <option value="filling">Cavity Filling</option>
+                                    <option value="extraction">Tooth Extraction</option>
+                                    <option value="whitening">Teeth Whitening</option>
+                                    <option value="consultation">Consultation</option>
+                                    <option value="emergency">Emergency Visit</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="appointmentDate" class="form-label">Preferred Date</label>
+                                <input type="date" class="form-control" id="appointmentDate" name="date" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="appointmentTime" class="form-label">Preferred Time</label>
+                                <select class="form-select" id="appointmentTime" name="time" required>
+                                    <option value="">Select a time...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="notes" class="form-label">Additional Notes</label>
+                                <textarea class="form-control" id="notes" name="notes" rows="3" 
+                                          placeholder="Any special requests or concerns..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-outline-secondary me-md-2" id="checkAvailability">
+                                <i class="fas fa-search me-2"></i>Check Availability
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-calendar-check me-2"></i>Book Appointment
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Available Dates -->
+            <div class="card shadow-lg mt-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>Quick Available Dates</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% if available_dates is iterable and available_dates|length > 0 %}
+                            {% for available_date in available_dates %}
+                            <div class="col-md-3 mb-2">
+                                <button class="btn btn-outline-primary w-100 quick-date-btn" 
+                                        data-date="{{ available_date.strftime('%Y-%m-%d')|default('') }}">
+                                    {{ available_date.strftime('%b %d, %Y')|default('') }}
+                                </button>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted">No available dates found.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Modal -->
+<div class="modal fade" id="loadingModal" tabindex="-1">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2 mb-0">Processing your request...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title"><i class="fas fa-check-circle me-2"></i>Appointment Booked!</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Your appointment has been successfully scheduled!</p>
+                <div id="appointmentDetails"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="{{ url_for('main.dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const serviceTypeSelect = document.getElementById('serviceType');
+    const dateInput = document.getElementById('appointmentDate');
+    const timeSelect = document.getElementById('appointmentTime');
+    const checkAvailabilityBtn = document.getElementById('checkAvailability');
+    const appointmentForm = document.getElementById('appointmentForm');
+    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.min = today;
+
+    // Quick date buttons
+    document.querySelectorAll('.quick-date-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            dateInput.value = this.dataset.date;
+            checkAvailability();
+        });
+    });
+
+    // Check availability when date or service changes
+    dateInput.addEventListener('change', checkAvailability);
+    serviceTypeSelect.addEventListener('change', checkAvailability);
+
+    // Check availability button
+    checkAvailabilityBtn.addEventListener('click', checkAvailability);
+
+    function checkAvailability() {
+        const date = dateInput.value;
+        const serviceType = serviceTypeSelect.value;
+
+        if (!date || !serviceType) {
+            return;
+        }
+
+        loadingModal.show();
+
+        fetch(`/api/available-slots?date=${date}&service_type=${serviceType}`)
+            .then(response => response.json())
+            .then(data => {
+                loadingModal.hide();
+                
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                    return;
+                }
+
+                // Populate time slots
+                timeSelect.innerHTML = '<option value="">Select a time...</option>';
+                data.available_slots.forEach(slot => {
+                    const option = document.createElement('option');
+                    option.value = slot;
+                    option.textContent = slot;
+                    timeSelect.appendChild(option);
+                });
+
+                if (data.available_slots.length === 0) {
+                    timeSelect.innerHTML = '<option value="">No available slots</option>';
+                }
+            })
+            .catch(error => {
+                loadingModal.hide();
+                console.error('Error:', error);
+                alert('Error checking availability');
+            });
+    }
+
+    // Form submission
+    appointmentForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = {
+            service_type: serviceTypeSelect.value,
+            date: dateInput.value,
+            time: timeSelect.value,
+            notes: document.getElementById('notes').value
+        };
+
+        loadingModal.show();
+
+        fetch('/api/book-appointment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            loadingModal.hide();
+            
+            if (data.success) {
+                // Show success modal
+                document.getElementById('appointmentDetails').innerHTML = `
+                    <div class="alert alert-success">
+                        <strong>Service:</strong> ${formData.service_type}<br>
+                        <strong>Date:</strong> ${formData.date}<br>
+                        <strong>Time:</strong> ${formData.time}
+                    </div>
+                `;
+                successModal.show();
+                appointmentForm.reset();
+            } else {
+                alert('Error: ' + data.error);
+            }
+        })
+        .catch(error => {
+            loadingModal.hide();
+            console.error('Error:', error);
+            alert('Error booking appointment');
+        });
+    });
+});
+</script>
+{% endblock %} 

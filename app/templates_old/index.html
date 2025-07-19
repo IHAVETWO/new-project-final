@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Articles</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Articles</h1>
+        <div class="center-btn">
+            <a class="add-btn" href="{{ url_for('main.add_article') }}">Add Article</a>
+        </div>
+        <div class="articles">
+            {% if articles is iterable and articles|length > 0 %}
+                {% for article in articles %}
+                <div class="article-card">
+                    <h2>{{ article.title|default('') }}</h2>
+                    <p>{{ article.content|default('') }}</p>
+                    {% if article.image_url %}
+                        <img src="{{ article.image_url|default('') }}" alt="Image" class="article-img">
+                    {% endif %}
+                    <div class="actions">
+                        <a class="edit-btn" href="{{ url_for('main.edit_article', id=article.id)|default('') }}">Edit</a>
+                        <form action="{{ url_for('main.delete_article', id=article.id)|default('') }}" method="post" style="display:inline;">
+                            <button class="delete-btn" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-muted">No articles found.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html> 

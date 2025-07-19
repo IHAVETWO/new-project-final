@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}News | BrightSmile Dental{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-4 text-center">Latest News</h1>
+  <div class="row g-4">
+    <!-- Example news card, repeat for each article -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Grand Opening of Our New Clinic</h5>
+          <p class="card-text">We are excited to announce the grand opening of our new state-of-the-art dental clinic! Visit us for a tour and special offers.</p>
+          <p class="card-text"><small class="text-muted">July 2025</small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">BrightSmile Wins Best Dental Clinic Award</h5>
+          <p class="card-text">We are honored to be recognized as the best dental clinic in the region for our commitment to patient care and innovation.</p>
+          <p class="card-text"><small class="text-muted">June 2025</small></p>
+        </div>
+      </div>
+    </div>
+    <!-- Add more news cards as needed -->
+  </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,132 @@
+<!-- Navigation Buttons Component -->
+<div class="navigation-buttons mb-4">
+    <div class="row">
+        <!-- Main Navigation -->
+        <div class="col-12 mb-3">
+            <h5 class="text-primary mb-3"><i class="fas fa-compass me-2"></i>Quick Navigation</h5>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{{ url_for('main.home') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-home me-2"></i>Home
+                </a>
+                <a href="{{ url_for('main.services') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-stethoscope me-2"></i>Services
+                </a>
+                <a href="{{ url_for('main.about') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-info-circle me-2"></i>About
+                </a>
+                <a href="{{ url_for('main.team') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-users me-2"></i>Team
+                </a>
+                <a href="{{ url_for('main.contact') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-envelope me-2"></i>Contact
+                </a>
+            </div>
+        </div>
+
+        {% if current_user.is_authenticated %}
+        <!-- User Features -->
+        <div class="col-12 mb-3">
+            <h5 class="text-success mb-3"><i class="fas fa-user me-2"></i>My Account</h5>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-success">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+                <a href="{{ url_for('main.profile') }}" class="btn btn-outline-success">
+                    <i class="fas fa-user me-2"></i>Profile
+                </a>
+                <a href="{{ url_for('main.health_dashboard') }}" class="btn btn-outline-success">
+                    <i class="fas fa-heartbeat me-2"></i>Health Dashboard
+                </a>
+                <a href="{{ url_for('main.medical_history') }}" class="btn btn-outline-success">
+                    <i class="fas fa-file-medical me-2"></i>Medical History
+                </a>
+                <a href="{{ url_for('main.user_appointments') }}" class="btn btn-outline-success">
+                    <i class="fas fa-calendar me-2"></i>My Appointments
+                </a>
+                <a href="{{ url_for('main.notifications') }}" class="btn btn-outline-success">
+                    <i class="fas fa-bell me-2"></i>Notifications
+                </a>
+            </div>
+        </div>
+
+        <!-- Smart Features -->
+        <div class="col-12 mb-3">
+            <h5 class="text-info mb-3"><i class="fas fa-magic me-2"></i>Smart Features</h5>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{{ url_for('main.smart_appointment_scheduler') }}" class="btn btn-outline-info">
+                    <i class="fas fa-calendar-plus me-2"></i>Smart Scheduler
+                </a>
+                <a href="{{ url_for('main.export_user_data') }}" class="btn btn-outline-info">
+                    <i class="fas fa-download me-2"></i>Export My Data
+                </a>
+            </div>
+        </div>
+
+        <!-- Admin Features -->
+        {% if current_user.is_admin %}
+        <div class="col-12 mb-3">
+            <h5 class="text-warning mb-3"><i class="fas fa-cog me-2"></i>Admin Panel</h5>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{{ url_for('main.admin') }}" class="btn btn-outline-warning">
+                    <i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard
+                </a>
+                <a href="{{ url_for('main.admin_users') }}" class="btn btn-outline-warning">
+                    <i class="fas fa-users me-2"></i>Manage Users
+                </a>
+                <a href="{{ url_for('main.admin_appointments') }}" class="btn btn-outline-warning">
+                    <i class="fas fa-calendar-check me-2"></i>Manage Appointments
+                </a>
+                <a href="{{ url_for('main.admin_analytics_dashboard') }}" class="btn btn-outline-warning">
+                    <i class="fas fa-chart-bar me-2"></i>Analytics Dashboard
+                </a>
+                <a href="{{ url_for('main.advanced_analytics') }}" class="btn btn-outline-warning">
+                    <i class="fas fa-chart-line me-2"></i>Advanced Analytics
+                </a>
+                <a href="{{ url_for('main.performance_report') }}" class="btn btn-outline-warning">
+                    <i class="fas fa-file-alt me-2"></i>Performance Report
+                </a>
+                <a href="{{ url_for('main.export_comprehensive_report') }}" class="btn btn-outline-warning">
+                    <i class="fas fa-file-excel me-2"></i>Export Report
+                </a>
+                <a href="{{ url_for('main.admin_send_reminders') }}" class="btn btn-outline-warning">
+                    <i class="fas fa-bell me-2"></i>Send Reminders
+                </a>
+            </div>
+        </div>
+        {% endif %}
+        {% else %}
+        <!-- Guest Features -->
+        <div class="col-12 mb-3">
+            <h5 class="text-info mb-3"><i class="fas fa-user-plus me-2"></i>Get Started</h5>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{{ url_for('main.register') }}" class="btn btn-outline-info">
+                    <i class="fas fa-user-plus me-2"></i>Register
+                </a>
+                <a href="{{ url_for('main.login') }}" class="btn btn-outline-info">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </a>
+                <a href="{{ url_for('main.appointment') }}" class="btn btn-outline-info">
+                    <i class="fas fa-calendar-plus me-2"></i>Book Appointment
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.navigation-buttons .btn {
+    transition: all 0.3s ease;
+}
+
+.navigation-buttons .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.navigation-buttons h5 {
+    border-bottom: 2px solid currentColor;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+</style> 

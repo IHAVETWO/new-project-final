@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Advanced Analytics{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+{% endblock %}
+{% block content %}
+<div class="container advanced-analytics py-5">
+  <h1 class="display-5 mb-4 advanced-analytics-title"><i class="fas fa-chart-line me-2 text-primary"></i>Advanced Analytics</h1>
+  <div class="row g-4 mb-4">
+    <!-- Appointment Trends Card -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm h-100 advanced-analytics-card">
+        <div class="card-body">
+          <h5 class="card-title mb-3"><i class="fas fa-calendar-alt text-info me-2"></i>Appointment Trends</h5>
+          {% if appointment_trends %}
+            <ul class="list-group list-group-flush">
+              {% for trend in appointment_trends %}
+                <li class="list-group-item">{{ trend }}</li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">No data available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <!-- Demographics Card -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm h-100 advanced-analytics-card">
+        <div class="card-body">
+          <h5 class="card-title mb-3"><i class="fas fa-users text-success me-2"></i>Demographics</h5>
+          {% if demographics %}
+            <ul class="list-group list-group-flush">
+              {% for key, value in demographics.items() %}
+                <li class="list-group-item">{{ key }}: <strong>{{ value }}</strong></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">No data available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <!-- Service Analysis Card -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm h-100 advanced-analytics-card">
+        <div class="card-body">
+          <h5 class="card-title mb-3"><i class="fas fa-tooth text-primary me-2"></i>Service Analysis</h5>
+          {% if service_analysis %}
+            <ul class="list-group list-group-flush">
+              {% for key, value in service_analysis.items() %}
+                <li class="list-group-item">{{ key }}: <strong>{{ value }}</strong></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">No data available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <!-- Demand Prediction Card -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm h-100 advanced-analytics-card">
+        <div class="card-body">
+          <h5 class="card-title mb-3"><i class="fas fa-chart-area text-info me-2"></i>Demand Prediction</h5>
+          {% if demand_prediction %}
+            <ul class="list-group list-group-flush">
+              {% for key, value in demand_prediction.items() %}
+                <li class="list-group-item">{{ key }}: <strong>{{ value }}</strong></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">No data available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <!-- Health Insights Card -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm h-100 advanced-analytics-card">
+        <div class="card-body">
+          <h5 class="card-title mb-3"><i class="fas fa-heartbeat text-danger me-2"></i>Health Insights</h5>
+          {% if health_insights %}
+            <ul class="list-group list-group-flush">
+              {% for key, value in health_insights.items() %}
+                <li class="list-group-item">{{ key }}: <strong>{{ value }}</strong></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">No data available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

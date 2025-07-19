@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Home | BrightSmile Dental{% endblock %}
+{% block content %}
+<!-- Hero Section -->
+<section class="py-5 text-center bg-primary text-white rounded mb-4">
+  <div class="container">
+    <h1 class="display-4 fw-bold">Welcome to BrightSmile Dental</h1>
+    <p class="lead">Modern, gentle dental care for all ages. Book your appointment today!</p>
+    <a href="/services" class="btn btn-light btn-lg mt-3">Explore Our Services</a>
+  </div>
+</section>
+<!-- Service Highlights -->
+<section class="mb-5">
+  <div class="container">
+    <h2 class="mb-4 text-center">Our Top Services</h2>
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title"><i class="bi bi-emoji-smile text-primary me-2"></i>General Dentistry</h5>
+            <p class="card-text">Comprehensive exams, cleanings, and preventive care for your whole family.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title"><i class="bi bi-braces text-primary me-2"></i>Orthodontics</h5>
+            <p class="card-text">Braces and aligners for a straighter, healthier smile at any age.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title"><i class="bi bi-heart-pulse text-primary me-2"></i>Cosmetic Dentistry</h5>
+            <p class="card-text">Whitening, veneers, and more to help you look and feel your best.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Call to Action -->
+<section class="text-center mb-5">
+  <a href="/register" class="btn btn-primary btn-lg me-2">Register Now</a>
+  <a href="/login" class="btn btn-outline-primary btn-lg">Login</a>
+</section>
+{% endblock %} 

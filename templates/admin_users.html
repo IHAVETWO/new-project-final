@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Admin - User Management{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+{% endblock %}
+{% block content %}
+<div class="container admin-users">
+    <h1 class="admin-users-title mb-4"><i class="fas fa-users"></i> User Management</h1>
+    <div class="table-responsive">
+        <table class="table admin-users-table table-striped table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Admin?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if users is iterable and users|length > 0 %}
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id|default('') }}</td>
+                        <td>{{ user.username|default('') }}</td>
+                        <td>{{ user.email|default('') }}</td>
+                        <td>{{ 'Yes' if user.is_admin else 'No' }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="4" class="text-muted">No users found.</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <a href="#" class="fab btn-admin" title="Add User"><i class="fas fa-plus"></i></a>
+</div>
+{% endblock %} 

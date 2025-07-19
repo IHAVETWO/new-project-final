@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Home - Clinic{% endblock %}
+{% block content %}
+<div class="py-5 text-center bg-light rounded-3 mb-4">
+    <h1 class="display-4">Welcome to Our Clinic</h1>
+    <p class="lead">Your health, our priority. Book appointments, view your medical history, and connect with our expert team.</p>
+    <a href="/services" class="btn btn-primary btn-lg mt-3">Explore Services</a>
+    <a href="/register" class="btn btn-outline-secondary btn-lg mt-3">Register Now</a>
+</div>
+<div class="row text-center mb-5">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Expert Doctors</h5>
+                <p class="card-text">Our team consists of highly qualified professionals dedicated to your well-being.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Modern Facilities</h5>
+                <p class="card-text">State-of-the-art equipment and comfortable environment for all patients.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Personalized Care</h5>
+                <p class="card-text">We tailor our services to meet your individual health needs.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

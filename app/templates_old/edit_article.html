@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Article</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Article</h1>
+        <form method="post" class="article-form">
+            <label>Title: <input type="text" name="title" value="{{ article.title }}" required></label><br>
+            <label>Content: <textarea name="content" required>{{ article.content }}</textarea></label><br>
+            <label>Image URL: <input type="text" name="image_url" value="{{ article.image_url }}"></label><br>
+            <button type="submit">Update</button>
+        </form>
+        <a href="{{ url_for('main.index') }}">Back</a>
+    </div>
+</body>
+</html> 

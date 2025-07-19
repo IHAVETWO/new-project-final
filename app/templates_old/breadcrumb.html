@@ -1,0 +1,45 @@
+<!-- Breadcrumb Navigation Component -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{ url_for('main.home') }}" class="text-decoration-none">
+                <i class="fas fa-home me-1"></i>Home
+            </a>
+        </li>
+        {% if current_user.is_authenticated %}
+            <li class="breadcrumb-item">
+                <a href="{{ url_for('main.dashboard') }}" class="text-decoration-none">
+                    <i class="fas fa-tachometer-alt me-1"></i>Dashboard
+                </a>
+            </li>
+        {% endif %}
+        {% block breadcrumb_items %}{% endblock %}
+    </ol>
+</nav>
+
+<style>
+.breadcrumb {
+    background: transparent;
+    padding: 0.75rem 0;
+    margin-bottom: 0;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+    color: #6c757d;
+    font-weight: bold;
+}
+
+.breadcrumb-item a {
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: #0056b3;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+}
+</style> 

@@ -1,0 +1,605 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Dental Clinic{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dashboard-container {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px 0;
+    }
+    
+    .dashboard-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        margin-bottom: 20px;
+    }
+    
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .stat-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+        transform: translateX(-100%);
+        transition: transform 0.6s;
+    }
+    
+    .stat-card:hover::before {
+        transform: translateX(100%);
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+    
+    .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+    
+    .action-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 15px 20px;
+        text-decoration: none;
+        text-align: center;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        color: white;
+        text-decoration: none;
+    }
+    
+    .appointment-card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-left: 4px solid #667eea;
+        transition: all 0.3s ease;
+    }
+    
+    .appointment-card:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .appointment-status {
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    
+    .status-scheduled { background: #e3f2fd; color: #1976d2; }
+    .status-confirmed { background: #e8f5e8; color: #388e3c; }
+    .status-completed { background: #f3e5f5; color: #7b1fa2; }
+    .status-cancelled { background: #ffebee; color: #d32f2f; }
+    
+    .notification-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #ff4757;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        font-weight: bold;
+    }
+    
+    .real-time-indicator {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: #4caf50;
+        border-radius: 50%;
+        margin-right: 8px;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.5; }
+        100% { opacity: 1; }
+    }
+    
+    .chart-container {
+        height: 300px;
+        margin: 20px 0;
+    }
+    
+    .health-score {
+        background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+        color: white;
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .health-score-circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    
+    .recent-activity {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+    
+    .activity-item {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .activity-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+    }
+    
+    .activity-appointment { background: #667eea; }
+    .activity-medical { background: #4caf50; }
+    .activity-system { background: #ff9800; }
+    
+    .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #667eea;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    .weather-widget {
+        background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+        color: white;
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .weather-icon {
+        font-size: 3rem;
+        margin-bottom: 10px;
+    }
+    
+    .temperature {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    
+    .weather-description {
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="container">
+        <!-- Welcome Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="dashboard-card p-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h1 class="mb-2">Welcome back, {{ current_user.first_name|default('') }}!</h1>
+                            <p class="text-muted mb-0">
+                                <span class="real-time-indicator"></span>
+                                Last login: {{ current_user.last_login.strftime('%B %d, %Y at %I:%M %p') if current_user.last_login else 'First time login' }}
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="weather-widget">
+                                <div class="weather-icon">☀️</div>
+                                <div class="temperature">72°F</div>
+                                <div class="weather-description">Sunny</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-appointments">{{ stats.total_appointments|default('') }}</div>
+                    <div class="stat-label">Total Appointments</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-number" id="upcoming-appointments">{{ stats.upcoming_appointments|default('') }}</div>
+                    <div class="stat-label">Upcoming</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-number" id="completed-appointments">{{ stats.completed_appointments|default('') }}</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-number" id="health-score">{{ stats.health_score|default('') }}</div>
+                    <div class="stat-label">Health Score</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="dashboard-card p-4">
+                    <h4 class="mb-3">Quick Actions</h4>
+                    <div class="quick-actions">
+                        <a href="{{ url_for('main.appointment') }}" class="action-btn">
+                            <i class="fas fa-calendar-plus"></i>
+                            Book Appointment
+                        </a>
+                        <a href="{{ url_for('main.medical_history') }}" class="action-btn">
+                            <i class="fas fa-notes-medical"></i>
+                            Medical History
+                        </a>
+                        <a href="{{ url_for('main.profile') }}" class="action-btn">
+                            <i class="fas fa-user-edit"></i>
+                            Update Profile
+                        </a>
+                        <a href="{{ url_for('main.notifications') }}" class="action-btn position-relative">
+                            <i class="fas fa-bell"></i>
+                            Notifications
+                            {% if unread_notifications > 0 %}
+                            <span class="notification-badge">{{ unread_notifications|default('') }}</span>
+                            {% endif %}
+                        </a>
+                        {% if current_user.is_admin %}
+                        <a href="{{ url_for('main.admin') }}" class="action-btn">
+                            <i class="fas fa-cog"></i>
+                            Admin Panel
+                        </a>
+                        <a href="{{ url_for('main.advanced_analytics') }}" class="action-btn">
+                            <i class="fas fa-chart-line"></i>
+                            Analytics
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="row">
+            <!-- Upcoming Appointments -->
+            <div class="col-lg-8">
+                <div class="dashboard-card p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4>Upcoming Appointments</h4>
+                        <a href="{{ url_for('main.user_appointments') }}" class="btn btn-outline-primary btn-sm">View All</a>
+                    </div>
+                    
+                    <div id="appointments-container">
+                        {% if upcoming_appointments %}
+                            {% for appointment in upcoming_appointments %}
+                            <div class="appointment-card">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <h6 class="mb-1">{{ appointment.service_type|default('General Checkup') }}</h6>
+                                        <p class="text-muted mb-1">
+                                            <i class="fas fa-calendar"></i> 
+                                            {{ appointment.date.strftime('%A, %B %d, %Y') if appointment.date else '' }}
+                                        </p>
+                                        <p class="text-muted mb-0">
+                                            <i class="fas fa-clock"></i> 
+                                            {{ appointment.time.strftime('%I:%M %p') if appointment.time else '' }}
+                                        </p>
+                                    </div>
+                                    <div class="col-md-4 text-end">
+                                        <span class="appointment-status status-{{ appointment.status|default('') }}">
+                                            {{ appointment.status.title() if appointment.status else '' }}
+                                        </span>
+                                        <div class="mt-2">
+                                            <a href="{{ url_for('main.appointment_detail', appointment_id=appointment.id) }}" 
+                                               class="btn btn-sm btn-outline-primary">Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="text-center py-4">
+                                <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                                <h5 class="text-muted">No upcoming appointments</h5>
+                                <p class="text-muted">Book your next appointment to get started!</p>
+                                <a href="{{ url_for('main.appointment') }}" class="btn btn-primary">Book Appointment</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Health Analytics Chart -->
+                <div class="dashboard-card p-4 mt-4">
+                    <h4 class="mb-3">Health Trends</h4>
+                    <div class="chart-container">
+                        <canvas id="healthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Health Score -->
+                <div class="health-score">
+                    <div class="health-score-circle" id="health-score-circle">
+                        {{ stats.health_score|default('') }}%
+                    </div>
+                    <h5>Your Health Score</h5>
+                    <p class="mb-0">Based on your recent visits and health data</p>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="dashboard-card p-4">
+                    <h5 class="mb-3">Recent Activity</h5>
+                    <div class="recent-activity" id="activity-feed">
+                        {% for activity in recent_activities %}
+                        <div class="activity-item">
+                            <div class="activity-icon activity-{{ activity.type }}">
+                                <i class="fas fa-{{ activity.icon }}"></i>
+                            </div>
+                            <div>
+                                <div class="fw-bold">{{ activity.title|default('') }}</div>
+                                <div class="text-muted small">{{ activity.timestamp|default('') }}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Quick Tips -->
+                <div class="dashboard-card p-4 mt-4">
+                    <h5 class="mb-3">Health Tips</h5>
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb"></i>
+                        <strong>Tip:</strong> Remember to brush twice daily and floss regularly for optimal oral health.
+                    </div>
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i>
+                        <strong>Good job!</strong> You've maintained good dental hygiene this week.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script>
+// Initialize Socket.IO connection
+const socket = io();
+
+// Authentication
+socket.on('connect', function() {
+    console.log('Connected to server');
+    socket.emit('authenticate', {
+        user_id: "{{ current_user.id|default('') }}"
+    });
+});
+
+// Handle authentication response
+socket.on('authenticated', function(data) {
+    if (data.status === 'success') {
+        console.log('Authenticated successfully');
+        // Join appointment rooms for real-time updates
+        {% for appointment in upcoming_appointments %}
+        socket.emit('join_appointment_room', { appointment_id: "{{ appointment.id|default('') }}" });
+        {% endfor %}
+    }
+});
+
+// Handle new notifications
+socket.on('new_notification', function(data) {
+    // Update notification badge
+    const badge = document.querySelector('.notification-badge');
+    if (badge) {
+        const currentCount = parseInt(badge.textContent) || 0;
+        badge.textContent = currentCount + 1;
+    } else {
+        // Create new badge if it doesn't exist
+        const actionBtn = document.querySelector('.action-btn[href*="notifications"]');
+        if (actionBtn) {
+            const newBadge = document.createElement('span');
+            newBadge.className = 'notification-badge';
+            newBadge.textContent = '1';
+            actionBtn.appendChild(newBadge);
+        }
+    }
+    
+    // Show toast notification
+    showToast(data.title, data.message, data.type);
+});
+
+// Handle appointment updates
+socket.on('appointment_update', function(data) {
+    console.log('Appointment update received:', data);
+    // Refresh appointments or update specific appointment
+    location.reload();
+});
+
+// Handle system health updates
+socket.on('system_health', function(data) {
+    console.log('System health update:', data);
+    // Update any system metrics if needed
+});
+
+// Health Chart
+const ctx = document.getElementById('healthChart').getContext('2d');
+const healthChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+            label: 'Health Score',
+            data: [85, 87, 89, 88, 92, 90],
+            borderColor: '#667eea',
+            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+            tension: 0.4,
+            fill: true
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100,
+                ticks: {
+                    callback: function(value) {
+                        return value + '%';
+                    }
+                }
+            }
+        }
+    }
+});
+
+// Toast notification function
+function showToast(title, message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast align-items-center text-white bg-${type} border-0`;
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'assertive');
+    toast.setAttribute('aria-atomic', 'true');
+    
+    toast.innerHTML = `
+        <div class="d-flex">
+            <div class="toast-body">
+                <strong>${title}</strong><br>
+                ${message}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    `;
+    
+    const container = document.createElement('div');
+    container.className = 'toast-container position-fixed top-0 end-0 p-3';
+    container.appendChild(toast);
+    document.body.appendChild(container);
+    
+    const bsToast = new bootstrap.Toast(toast);
+    bsToast.show();
+    
+    // Remove toast after it's hidden
+    toast.addEventListener('hidden.bs.toast', function() {
+        container.remove();
+    });
+}
+
+// Real-time stats updates
+function updateStats() {
+    fetch('/api/user-stats')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('total-appointments').textContent = data.total_appointments;
+            document.getElementById('upcoming-appointments').textContent = data.upcoming_appointments;
+            document.getElementById('completed-appointments').textContent = data.completed_appointments;
+            document.getElementById('health-score').textContent = data.health_score;
+            document.getElementById('health-score-circle').textContent = data.health_score + '%';
+        })
+        .catch(error => console.error('Error updating stats:', error));
+}
+
+// Update stats every 30 seconds
+setInterval(updateStats, 30000);
+
+// Initialize tooltips
+document.addEventListener('DOMContentLoaded', function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
+</script>
+{% endblock %} 

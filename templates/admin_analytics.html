@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Admin Analytics Dashboard{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+{% endblock %}
+{% block content %}
+<div class="container admin-analytics py-5">
+  <h1 class="display-5 mb-4 admin-analytics-title"><i class="fas fa-chart-bar me-2 text-primary"></i>Admin Analytics Dashboard</h1>
+  <div class="row g-4 mb-4">
+    <!-- Clinic Stats Card -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm h-100 admin-analytics-card">
+        <div class="card-body">
+          <h5 class="card-title mb-3"><i class="fas fa-clinic-medical text-info me-2"></i>Clinic Statistics</h5>
+          {% if clinic_stats %}
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><i class="fas fa-users text-secondary me-2"></i>Total Users: <strong>{{ clinic_stats.total_users }}</strong></li>
+              <li class="list-group-item"><i class="fas fa-calendar-check text-success me-2"></i>Total Appointments: <strong>{{ clinic_stats.total_appointments }}</strong></li>
+              <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Completed: <strong>{{ clinic_stats.completed_appointments }}</strong></li>
+              <li class="list-group-item"><i class="fas fa-hourglass-half text-warning me-2"></i>Pending: <strong>{{ clinic_stats.pending_appointments }}</strong></li>
+              <li class="list-group-item"><i class="fas fa-calendar-alt text-primary me-2"></i>Monthly Appointments: <strong>{{ clinic_stats.monthly_appointments }}</strong></li>
+              <li class="list-group-item"><i class="fas fa-coins text-warning me-2"></i>Total Revenue: <strong>${{ clinic_stats.total_revenue }}</strong></li>
+              <li class="list-group-item"><i class="fas fa-percentage text-info me-2"></i>Completion Rate: <strong>{{ clinic_stats.completion_rate }}%</strong></li>
+            </ul>
+          {% else %}
+            <p class="text-muted">No statistics available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <!-- Service Popularity Card -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm h-100 admin-analytics-card">
+        <div class="card-body">
+          <h5 class="card-title mb-3"><i class="fas fa-star text-warning me-2"></i>Service Popularity</h5>
+          {% if service_popularity %}
+            <ul class="list-group list-group-flush">
+              {% for service, count in service_popularity.items() %}
+                <li class="list-group-item">{{ service }}: <span class="badge bg-primary">{{ count }}</span></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">No data available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <!-- Monthly Reports Card -->
+    <div class="col-md-12 col-lg-4">
+      <div class="card shadow-sm h-100 admin-analytics-card">
+        <div class="card-body">
+          <h5 class="card-title mb-3"><i class="fas fa-calendar-alt text-primary me-2"></i>Monthly Reports (last 6 months)</h5>
+          {% if monthly_reports and monthly_reports|length > 0 %}
+            <div class="table-responsive">
+              <table class="table table-sm table-bordered align-middle mb-0 admin-analytics-table">
+                <thead class="table-light">
+                  <tr>
+                    <th>Month</th>
+                    <th>Year</th>
+                    <th>Appointments</th>
+                    <th>New Users</th>
+                    <th>Revenue</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for report in monthly_reports %}
+                  <tr>
+                    <td>{{ report.month }}</td>
+                    <td>{{ report.year }}</td>
+                    <td>{{ report.total_appointments }}</td>
+                    <td>{{ report.new_users }}</td>
+                    <td>${{ report.total_revenue }}</td>
+                    <td>
+                      <span class="badge bg-success">Completed: {{ report.appointments_by_status.completed }}</span><br>
+                      <span class="badge bg-warning text-dark">Scheduled: {{ report.appointments_by_status.scheduled }}</span><br>
+                      <span class="badge bg-danger">Cancelled: {{ report.appointments_by_status.cancelled }}</span>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <p class="text-muted">No monthly reports available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

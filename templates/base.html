@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BrightSmile Dental Clinic{% endblock %}</title>
+    {% block meta %}
+    <meta name="description" content="BrightSmile Dental Clinic - Modern, gentle dental care for all ages. Book your appointment today!">
+    <meta property="og:title" content="BrightSmile Dental Clinic">
+    <meta property="og:description" content="Modern, gentle dental care for all ages. Book your appointment today!">
+    <meta property="og:image" content="/static/favicon.png">
+    <meta property="og:type" content="website">
+    {% endblock %}
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="preload" href="{{ url_for('static', filename='modern-style.css') }}" as="style">
+    <link rel="stylesheet" href="{{ url_for('static', filename='modern-style.css') }}">
+    <link rel="preload" href="{{ url_for('static', filename='style.css') }}" as="style">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="visually-hidden-focusable skip-link">Skip to main content</a>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="{{ url_for('static', filename='logo.webp') }}" alt="TBC Logo" style="height:40px; margin-right:10px;">
+                <span>Clinic</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Main navigation links -->
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('main.home')|default('') }}"><i class="fas fa-home me-1" aria-hidden="true"></i>Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('main.services')|default('') }}"><i class="fas fa-stethoscope me-1" aria-hidden="true"></i>Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('main.about')|default('') }}"><i class="fas fa-info-circle me-1" aria-hidden="true"></i>About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('main.news')|default('') }}"><i class="fas fa-newspaper me-1" aria-hidden="true"></i>News</a></li>
+                </ul>
+                <!-- User Menu -->
+                <ul class="navbar-nav">
+                    {% if current_user.is_authenticated %}
+                        <!-- Patient Menu -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-circle me-1" aria-hidden="true"></i>My Account</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ url_for('main.dashboard')|default('') }}"><i class="fas fa-tachometer-alt me-2" aria-hidden="true"></i>Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('main.profile')|default('') }}"><i class="fas fa-user me-2" aria-hidden="true"></i>Profile</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('main.health_dashboard')|default('') }}"><i class="fas fa-heartbeat me-2" aria-hidden="true"></i>Health Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('main.medical_history')|default('') }}"><i class="fas fa-file-medical me-2" aria-hidden="true"></i>Medical History</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('main.user_appointments')|default('') }}"><i class="fas fa-calendar me-2" aria-hidden="true"></i>My Appointments</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('main.notifications')|default('') }}"><i class="fas fa-bell me-2" aria-hidden="true"></i>Notifications</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ url_for('main.logout')|default('') }}"><i class="fas fa-sign-out-alt me-2" aria-hidden="true"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                        <!-- Smart Features Menu -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-magic me-1" aria-hidden="true"></i>Smart Features</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ url_for('main.smart_appointment_scheduler')|default('') }}"><i class="fas fa-calendar-plus me-2" aria-hidden="true"></i>Smart Scheduler</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('main.export_user_data')|default('') }}"><i class="fas fa-download me-2" aria-hidden="true"></i>Export My Data</a></li>
+                            </ul>
+                        </li>
+                        <!-- Admin Menu -->
+                        {% if current_user.is_admin %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog me-1" aria-hidden="true"></i>Admin</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ url_for('main.admin')|default('') }}"><i class="fas fa-tachometer-alt me-2" aria-hidden="true"></i>Admin Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('main.admin_users')|default('') }}"><i class="fas fa-users me-2" aria-hidden="true"></i>Manage Users</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('main.admin_appointments')|default('') }}"><i class="fas fa-calendar-check me-2" aria-hidden="true"></i>Manage Appointments</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('main.admin_analytics_dashboard')|default('') }}"><i class="fas fa-chart-bar me-2" aria-hidden="true"></i>Analytics Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('main.advanced_analytics')|default('') }}"><i class="fas fa-chart-line me-2" aria-hidden="true"></i>Advanced Analytics</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('main.performance_report')|default('') }}"><i class="fas fa-file-alt me-2" aria-hidden="true"></i>Performance Report</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('main.export_comprehensive_report')|default('') }}"><i class="fas fa-file-excel me-2" aria-hidden="true"></i>Export Report</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('main.admin_send_reminders')|default('') }}"><i class="fas fa-bell me-2" aria-hidden="true"></i>Send Reminders</a></li>
+                            </ul>
+                        </li>
+                        {% endif %}
+                        <!-- Quick Actions -->
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary text-white px-3" href="{{ url_for('main.smart_appointment_scheduler')|default('') }}"><i class="fas fa-calendar-plus me-1" aria-hidden="true"></i>Book Appointment</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('main.login')|default('') }}"><i class="fas fa-sign-in-alt me-1" aria-hidden="true"></i>Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('main.register')|default('') }}"><i class="fas fa-user-plus me-1" aria-hidden="true"></i>Register</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-primary text-white px-3" href="{{ url_for('main.appointment')|default('') }}"><i class="fas fa-calendar-plus me-1" aria-hidden="true"></i>Book Appointment</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main id="main-content" role="main" tabindex="-1" style="margin-top: 80px;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="container mt-3" role="alert" aria-live="polite">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category|default('info') }} alert-dismissible fade show" role="alert">
+                            {{ message|default('') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-light" role="contentinfo">
+        <div class="container text-center">
+            <span class="text-muted">&copy; {{ current_year|default(2024) }} BrightSmile Dental Clinic. All rights reserved.</span>
+            <br>
+            <!-- Removed TBC logo from footer -->
+        </div>
+    </footer>
+    <!-- Dark mode toggle button -->
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="{{ url_for('static', filename='main.js') }}" defer></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

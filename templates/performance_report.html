@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Performance Report{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+{% endblock %}
+{% block content %}
+<div class="container performance-report py-5">
+  <h1 class="display-5 mb-4 performance-report-title"><i class="fas fa-file-alt me-2 text-primary"></i>Performance Report</h1>
+  <div class="row g-4 mb-4">
+    <!-- Demographics Card -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm h-100 performance-report-card">
+        <div class="card-body">
+          <h5 class="card-title mb-3"><i class="fas fa-users text-success me-2"></i>Demographics</h5>
+          {% if report.demographics %}
+            <ul class="list-group list-group-flush">
+              {% for key, value in report.demographics.items() %}
+                <li class="list-group-item">{{ key }}: <strong>{{ value }}</strong></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">No data available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <!-- Service Analysis Card -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm h-100 performance-report-card">
+        <div class="card-body">
+          <h5 class="card-title mb-3"><i class="fas fa-tooth text-primary me-2"></i>Service Analysis</h5>
+          {% if report.service_analysis %}
+            <ul class="list-group list-group-flush">
+              {% for key, value in report.service_analysis.items() %}
+                <li class="list-group-item">{{ key }}: <strong>{{ value }}</strong></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">No data available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <!-- Appointment Trends Card -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm h-100 performance-report-card">
+        <div class="card-body">
+          <h5 class="card-title mb-3"><i class="fas fa-calendar-alt text-info me-2"></i>Appointment Trends</h5>
+          {% if report.appointment_trends %}
+            <ul class="list-group list-group-flush">
+              {% for key, value in report.appointment_trends.items() %}
+                <li class="list-group-item">{{ key }}: <strong>{{ value }}</strong></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">No data available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <!-- Demand Prediction Card -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm h-100 performance-report-card">
+        <div class="card-body">
+          <h5 class="card-title mb-3"><i class="fas fa-chart-area text-info me-2"></i>Demand Prediction</h5>
+          {% if report.demand_prediction %}
+            <ul class="list-group list-group-flush">
+              {% for key, value in report.demand_prediction.items() %}
+                <li class="list-group-item">{{ key }}: <strong>{{ value }}</strong></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">No data available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <!-- Health Insights Card -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm h-100 performance-report-card">
+        <div class="card-body">
+          <h5 class="card-title mb-3"><i class="fas fa-heartbeat text-danger me-2"></i>Health Insights</h5>
+          {% if report.health_insights %}
+            <ul class="list-group list-group-flush">
+              {% for key, value in report.health_insights.items() %}
+                <li class="list-group-item">{{ key }}: <strong>{{ value }}</strong></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">No data available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

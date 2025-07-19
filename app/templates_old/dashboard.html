@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | BrightSmile Dental{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-4 text-center">My Dashboard</h1>
+  <div class="row g-4 mb-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Upcoming Appointments</h5>
+          <ul class="list-group list-group-flush">
+            <!-- Example appointment -->
+            <li class="list-group-item">July 15, 2025 - Cleaning</li>
+            <!-- Add more appointments dynamically -->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Recent Notifications</h5>
+          <ul class="list-group list-group-flush">
+            <!-- Example notification -->
+            <li class="list-group-item">Your next appointment is coming up soon!</li>
+            <!-- Add more notifications dynamically -->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Health Summary</h5>
+          <p class="card-text">Your dental health is excellent. Keep up the good work!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row g-4">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Recent Medical Records</h5>
+          <ul class="list-group list-group-flush">
+            <!-- Example record -->
+            <li class="list-group-item">June 2025 - Cavity Filling</li>
+            <!-- Add more records dynamically -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 - Something Went Wrong</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f2027, #2c5364, #f8ffae);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', Arial, sans-serif;
+            color: #fff;
+        }
+        .tooth {
+            width: 120px;
+            height: 140px;
+            background: #fff;
+            border-radius: 60px 60px 80px 80px / 80px 80px 120px 120px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            margin-bottom: 32px;
+            position: relative;
+            animation: float 2.5s ease-in-out infinite;
+        }
+        .tooth:before, .tooth:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 36px;
+            height: 60px;
+            background: #fff;
+            border-radius: 50%;
+        }
+        .tooth:before {
+            left: 10px;
+            box-shadow: 0 0 16px #b2fefa;
+        }
+        .tooth:after {
+            right: 10px;
+            box-shadow: 0 0 16px #b2fefa;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-18px); }
+        }
+        h1 {
+            font-family: 'Orbitron', 'Inter', Arial, sans-serif;
+            font-size: 4rem;
+            letter-spacing: 2px;
+            margin: 0 0 16px 0;
+            color: #b2fefa;
+            text-shadow: 0 2px 16px #0f2027;
+        }
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+            color: #f8ffae;
+            text-shadow: 0 1px 8px #2c5364;
+        }
+        .btn-home {
+            display: inline-block;
+            padding: 14px 36px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(90deg, #b2fefa 0%, #0ed2f7 100%);
+            border: none;
+            border-radius: 32px;
+            box-shadow: 0 4px 24px #0ed2f7aa;
+            text-decoration: none;
+            margin-top: 32px;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .btn-home:hover {
+            background: linear-gradient(90deg, #0ed2f7 0%, #b2fefa 100%);
+            color: #0f2027;
+            transform: scale(1.05);
+        }
+        .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="tooth"></div>
+    <span class="emoji">🦷</span>
+    <h1>500</h1>
+    <div class="subtitle">Something went wrong on our end.</div>
+    <div class="subtitle">Don't worry, our team of dental experts is on it!</div>
+    <a href="/" class="btn-home">Back to Home</a>
+</body>
+</html> 

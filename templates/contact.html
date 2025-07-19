@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Contact Us - BrightSmile Dental Clinic{% endblock %}
+{% block content %}
+<section class="hero hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="fade-in">Contact BrightSmile</h1>
+        <p class="fade-in delay-1">We'd love to hear from you! Reach out with any questions or to book an appointment.</p>
+    </div>
+</section>
+<section class="section contact-section fade-up">
+    <h2 class="section-title">Contact Us</h2>
+    <div class="contact-info-grid">
+        <div><strong>Address:</strong><br>456 Smile Lane, Happyville, 12345</div>
+        <div><strong>Phone:</strong><br>(555) 123-4567</div>
+        <div><strong>Email:</strong><br>hello@brightsmile.com</div>
+        <div><strong>Working Hours:</strong><br>Mon-Fri 9:00 - 18:00</div>
+    </div>
+    <form class="contact-form" method="POST" action="/contact">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit" class="btn-main">Send Message</button>
+    </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="flash-message">
+            {{ messages[0]|default('') }}
+        </div>
+    {% endif %}
+    {% endwith %}
+</section>
+{% endblock %} 

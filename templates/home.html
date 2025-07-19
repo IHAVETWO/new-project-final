@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}Home - BrightSmile Dental Clinic{% endblock %}
+{% block content %}
+<!-- THIS IS THE HOME PAGE. IF YOU SEE THIS, YOU ARE ON THE HOME PAGE. -->
+<div class="hero-section home-hero text-center py-5 bg-light">
+    <h1 class="display-4 fw-bold">Welcome to BrightSmile Dental Clinic</h1>
+    <h2 class="text-danger">HOME PAGE - NOT SERVICES</h2>
+    <p class="lead mb-4">Your smile, our passion. Modern, gentle dental care for all ages.</p>
+    <a href="{{ url_for('main.appointment') }}" class="btn btn-primary btn-lg mt-3">Book Your Appointment</a>
+</div>
+<!-- Removed the center logo image here -->
+<div class="container my-5">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+      <div class="card h-100 shadow-sm text-center p-3">
+        <div class="mb-3"><i class="fas fa-heartbeat fa-2x text-primary"></i></div>
+        <div class="card-body">
+          <h5 class="card-title">Our Mission</h5>
+          <p class="card-text">To provide gentle, modern dental care for all ages in a welcoming, state-of-the-art environment.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 shadow-sm text-center p-3">
+        <div class="mb-3"><i class="fas fa-comment-dots fa-2x text-success"></i></div>
+        <div class="card-body">
+          <h5 class="card-title">Patient Testimonials</h5>
+          <p class="card-text">“BrightSmile made me love going to the dentist! The staff is so friendly and professional.”</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 shadow-sm text-center p-3">
+        <div class="mb-3"><i class="fas fa-calendar-check fa-2x text-warning"></i></div>
+        <div class="card-body">
+          <h5 class="card-title">Book Now</h5>
+          <p class="card-text">Ready for your next checkup? <a href="{{ url_for('main.appointment') }}" class="btn btn-primary btn-sm mt-2">Book Appointment</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Team Section -->
+<div class="container my-5">
+  <h2 class="text-center mb-4">Meet Our Team</h2>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+      <div class="card h-100 shadow-sm text-center p-3">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="card-img-top rounded-circle mx-auto mt-3" alt="Dr. Olivia Bennett" style="width:100px; height:100px; object-fit:cover;">
+        <div class="card-body">
+          <h5 class="card-title">Dr. Olivia Bennett</h5>
+          <p class="card-text">Founder & Head Dentist</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 shadow-sm text-center p-3">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="card-img-top rounded-circle mx-auto mt-3" alt="Dr. Ethan Carter" style="width:100px; height:100px; object-fit:cover;">
+        <div class="card-body">
+          <h5 class="card-title">Dr. Ethan Carter</h5>
+          <p class="card-text">Orthodontist</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 shadow-sm text-center p-3">
+        <img src="https://randomuser.me/api/portraits/women/65.jpg" class="card-img-top rounded-circle mx-auto mt-3" alt="Dr. Mia Chen" style="width:100px; height:100px; object-fit:cover;">
+        <div class="card-body">
+          <h5 class="card-title">Dr. Mia Chen</h5>
+          <p class="card-text">Pediatric Specialist</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard - Clinic{% endblock %}
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-4">Dashboard</h2>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Upcoming Appointments</h5>
+                    <p class="card-text">View and manage your upcoming appointments here.</p>
+                    <a href="/user-appointments" class="btn btn-primary">View Appointments</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Notifications</h5>
+                    <p class="card-text">Check your latest notifications and updates.</p>
+                    <a href="/notifications" class="btn btn-secondary">View Notifications</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

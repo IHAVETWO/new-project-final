@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}404 Not Found | BrightSmile Dental{% endblock %}
+{% block head %}
+<meta name="description" content="404 Not Found - The page you are looking for does not exist. Return to the homepage or use the search bar to find what you need.">
+<meta name="robots" content="noindex, follow">
+<link rel="stylesheet" href="{{ url_for('static', filename='404.css') }}">
+{% endblock %}
+{% block content %}
+<main class="error-container" role="main" aria-label="404 Not Found">
+    <div class="floating-shapes" aria-hidden="true">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <section class="error-content">
+        <h1 class="error-number" aria-label="Error 404">404</h1>
+        <h2 class="error-title">Page Not Found</h2>
+        <p class="error-message">Oops! The page you're looking for doesn't exist.</p>
+        <div class="toothbrush-emoji" aria-hidden="true">🪥</div>
+        <p class="error-message">Maybe you took a wrong turn at the toothbrush?</p>
+        <div class="dental-icons" aria-hidden="true">
+            <span class="dental-icon">🦷</span>
+            <span class="dental-icon">😁</span>
+            <span class="dental-icon">🦷</span>
+        </div>
+        <form action="{{ url_for('main.home') }}" method="get" class="search-form" role="search" aria-label="Site search">
+            <input type="text" name="q" placeholder="Search our site..." aria-label="Search" class="search-input">
+            <button type="submit" class="search-button">🔍 Search</button>
+        </form>
+        <a href="{{ url_for('main.home') }}" class="home-button">
+            🏠 Back to Home
+        </a>
+    </section>
+</main>
+{% endblock %} 

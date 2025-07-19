@@ -1,0 +1,165 @@
+/* BrightSmile Admin/Analytics Modern Theme */
+
+body.admin-page {
+    background: linear-gradient(135deg, #eaf6fb 0%, #fafdff 100%);
+    min-height: 100vh;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.admin-dashboard, .admin-analytics, .admin-users, .admin-appointments, .admin-analytics-card {
+    max-width: 1100px;
+    margin: 2.5rem auto;
+    padding: 2.5rem 2rem;
+    background: #fff;
+    border-radius: 1.25rem;
+    box-shadow: 0 4px 32px 0 rgba(0, 80, 180, 0.08), 0 1.5px 6px 0 rgba(0,0,0,0.03);
+}
+
+.admin-dashboard h1, .admin-analytics h1, .admin-users-title, .admin-analytics-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1976d2;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+}
+
+.admin-section-title, .admin-analytics-section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1565c0;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.admin-card, .admin-analytics-card {
+    background: #fafdff;
+    border: 1px solid #e3eaf3;
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px 0 rgba(25, 118, 210, 0.06);
+    padding: 1.5rem 1.25rem;
+    margin-bottom: 2rem;
+    transition: box-shadow 0.2s;
+}
+.admin-card:hover, .admin-analytics-card:hover {
+    box-shadow: 0 6px 24px 0 rgba(25, 118, 210, 0.12);
+}
+
+.admin-table, .admin-analytics-table {
+    width: 100%;
+    background: #fff;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 1px 6px 0 rgba(25, 118, 210, 0.04);
+    margin-bottom: 2rem;
+}
+.admin-table th, .admin-analytics-table th {
+    background: #e3f0fb;
+    color: #1976d2;
+    font-weight: 600;
+    border: none;
+    padding: 0.85rem 1rem;
+}
+.admin-table td, .admin-analytics-table td {
+    border-top: 1px solid #e3eaf3;
+    padding: 0.85rem 1rem;
+    color: #333;
+}
+.admin-table tr:hover, .admin-analytics-table tr:hover {
+    background: #f0f7ff;
+}
+
+.admin-btn, .admin-analytics-btn, .btn-admin {
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.6rem 1.4rem;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.15s, box-shadow 0.15s;
+    box-shadow: 0 2px 8px 0 rgba(25, 118, 210, 0.08);
+}
+.admin-btn:hover, .admin-analytics-btn:hover, .btn-admin:hover {
+    background: #125ea7;
+    color: #fff;
+}
+
+.admin-stats, .admin-analytics-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+.admin-stat-card, .admin-analytics-stat-card {
+    flex: 1 1 180px;
+    background: #e3f0fb;
+    color: #1976d2;
+    border-radius: 0.75rem;
+    padding: 1.25rem 1rem;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    box-shadow: 0 1px 6px 0 rgba(25, 118, 210, 0.04);
+}
+
+.admin-form label, .admin-analytics-form label {
+    font-weight: 500;
+    color: #1976d2;
+}
+.admin-form input, .admin-form select, .admin-form textarea,
+.admin-analytics-form input, .admin-analytics-form select, .admin-analytics-form textarea {
+    border-radius: 0.5rem;
+    border: 1px solid #e3eaf3;
+    padding: 0.6rem 1rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+.admin-form input:focus, .admin-form select:focus, .admin-form textarea:focus,
+.admin-analytics-form input:focus, .admin-analytics-form select:focus, .admin-analytics-form textarea:focus {
+    border-color: #1976d2;
+    outline: none;
+    box-shadow: 0 0 0 2px #e3f0fb;
+}
+
+.admin-icon, .admin-analytics-icon {
+    color: #1976d2;
+    font-size: 2rem;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+    .admin-dashboard, .admin-analytics, .admin-users, .admin-appointments, .admin-analytics-card {
+        padding: 1.5rem 0.5rem;
+    }
+    .admin-stats, .admin-analytics-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+@media (max-width: 600px) {
+    .admin-dashboard, .admin-analytics, .admin-users, .admin-appointments, .admin-analytics-card {
+        margin: 1rem 0;
+        padding: 1rem 0.25rem;
+        border-radius: 0.5rem;
+    }
+    .admin-dashboard h1, .admin-analytics h1, .admin-users-title, .admin-analytics-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* Utility: add a blue border to highlight important cards */
+.admin-highlight {
+    border: 2px solid #1976d2 !important;
+    box-shadow: 0 4px 24px 0 rgba(25, 118, 210, 0.12) !important;
+}
+
+/* Hide scrollbars for a cleaner look */
+.admin-dashboard, .admin-analytics, .admin-users, .admin-appointments, .admin-analytics-card {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.admin-dashboard::-webkit-scrollbar, .admin-analytics::-webkit-scrollbar, .admin-users::-webkit-scrollbar, .admin-appointments::-webkit-scrollbar, .admin-analytics-card::-webkit-scrollbar {
+    display: none;
+} 

@@ -1,0 +1,16 @@
+/* Floating SVG shapes and keyframes for all pages */
+.floating-shape {
+    position: absolute;
+    z-index: 0;
+    opacity: 0.13;
+    animation: floatShape 7s infinite alternate ease-in-out;
+}
+.floating-shape2 {
+    left: 80vw;
+    top: 60vh;
+    animation-delay: 2s;
+}
+@keyframes floatShape {
+    from { transform: translateY(0) scale(1); }
+    to { transform: translateY(-40px) scale(1.1); }
+} 

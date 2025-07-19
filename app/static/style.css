@@ -1,0 +1,102 @@
+/* Modernized base styles for the app */
+body {
+  background: var(--background, #f8f9fa);
+  color: var(--text, #222);
+  font-family: var(--font-main, 'Inter', 'Roboto', Arial, sans-serif);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-main, 'Inter', 'Roboto', Arial, sans-serif);
+  font-weight: 700;
+  color: var(--primary-dark, #174ea6);
+}
+
+a {
+  color: var(--primary, #2575fc);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--primary-dark, #174ea6);
+  text-decoration: underline;
+}
+
+.btn, .btn-main {
+  background: var(--primary, #2575fc);
+  color: #fff;
+  border-radius: 2rem;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 2px 8px rgba(37,117,252,0.08);
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+}
+
+.btn:hover, .btn-main:hover, .btn:focus {
+  background: var(--primary-dark, #174ea6);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(37,117,252,0.16);
+}
+
+input, textarea, select {
+  border-radius: 1rem;
+  border: 1px solid var(--border, #e0e0e0);
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  background: #f9fbfd;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--primary, #2575fc);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(37,117,252,0.08);
+}
+
+.card, .dashboard-card, .metric-card {
+  background: var(--surface, #fff);
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(37,117,252,0.13);
+  border: 1px solid var(--border, #e0e0e0);
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.card:hover, .dashboard-card:hover, .metric-card:hover {
+  box-shadow: 0 8px 32px rgba(37,117,252,0.18);
+  border-color: var(--primary, #2575fc);
+}
+
+footer {
+  background: var(--surface, #fff);
+  border-top: 1px solid var(--border, #e0e0e0);
+  color: var(--muted, #6c757d);
+  padding: 2rem 0 1rem 0;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.alert {
+  border-radius: 1rem;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(37,117,252,0.06);
+}
+
+.rounded {
+  border-radius: 1rem !important;
+}
+.shadow {
+  box-shadow: 0 4px 24px rgba(37,117,252,0.13) !important;
+}
+
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+  .card, .dashboard-card, .metric-card {
+    margin-bottom: 1rem;
+  }
+} 

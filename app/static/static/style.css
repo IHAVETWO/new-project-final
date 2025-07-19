@@ -1,0 +1,6 @@
+.hero-section.home-hero {
+    background: linear-gradient(90deg, #e3f0ff 0%, #f8fafc 100%);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 32px rgba(37,117,252,0.08);
+    margin-bottom: 2.5rem;
+} 

@@ -1,0 +1,425 @@
+{% extends 'base.html' %}
+{% block title %}Admin Analytics Dashboard - BrightSmile{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="row">
+        <div class="col-12">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <div>
+                    <h1 class="display-4 fw-bold text-primary">Analytics Dashboard</h1>
+                    <p class="lead text-muted">Comprehensive clinic performance overview</p>
+                </div>
+                <div>
+                    <a href="{{ url_for('main.admin_send_reminders') }}" class="btn btn-warning">
+                        <i class="fas fa-bell me-2"></i>Send Reminders
+                    </a>
+                    <a href="{{ url_for('main.admin') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Admin
+                    </a>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            {% include 'navigation_buttons.html' %}
+
+            <!-- Key Metrics Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3 mb-3">
+                    <div class="card shadow-lg border-0 bg-primary text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h3 class="display-6 fw-bold">{{ clinic_stats.total_users }}</h3>
+                                    <p class="mb-0">Total Users</p>
+                                </div>
+                                <div class="icon-circle">
+                                    <i class="fas fa-users fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-3">
+                    <div class="card shadow-lg border-0 bg-success text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h3 class="display-6 fw-bold">{{ clinic_stats.total_appointments }}</h3>
+                                    <p class="mb-0">Total Appointments</p>
+                                </div>
+                                <div class="icon-circle">
+                                    <i class="fas fa-calendar-check fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-3">
+                    <div class="card shadow-lg border-0 bg-info text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h3 class="display-6 fw-bold">{{ clinic_stats.monthly_appointments }}</h3>
+                                    <p class="mb-0">This Month</p>
+                                </div>
+                                <div class="icon-circle">
+                                    <i class="fas fa-chart-line fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-3">
+                    <div class="card shadow-lg border-0 bg-warning text-dark">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h3 class="display-6 fw-bold">${{ "%.2f"|format(clinic_stats.total_revenue) }}</h3>
+                                    <p class="mb-0">Total Revenue</p>
+                                </div>
+                                <div class="icon-circle">
+                                    <i class="fas fa-dollar-sign fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Statistics -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card shadow-lg">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Appointment Status</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <div class="stat-item">
+                                        <h3 class="text-success">{{ clinic_stats.completed_appointments }}</h3>
+                                        <p class="text-muted">Completed</p>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-item">
+                                        <h3 class="text-warning">{{ clinic_stats.pending_appointments }}</h3>
+                                        <p class="text-muted">Pending</p>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-item">
+                                        <h3 class="text-info">{{ "%.1f"|format(clinic_stats.completion_rate) }}%</h3>
+                                        <p class="text-muted">Completion Rate</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card shadow-lg">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Service Popularity</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="service-popularity">
+                                {% for service in service_popularity[:5] %}
+                                <div class="service-item mb-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="service-name">{{ service.service_name }}</span>
+                                        <span class="service-count">{{ service.appointment_count }}</span>
+                                    </div>
+                                    <div class="progress mt-1" style="height: 8px;">
+                                        <div class="progress-bar bg-primary" 
+                                             style="width: {{ (service.appointment_count / service_popularity[0].appointment_count * 100) if service_popularity[0].appointment_count > 0 else 0 }}%">
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monthly Reports -->
+            <div class="card shadow-lg mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-chart-area me-2"></i>Monthly Performance</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Appointments</th>
+                                    <th>New Users</th>
+                                    <th>Revenue</th>
+                                    <th>Completed</th>
+                                    <th>Scheduled</th>
+                                    <th>Cancelled</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for report in monthly_reports %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ report.month }}/{{ report.year }}</strong>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-primary">{{ report.total_appointments }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success">{{ report.new_users }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-success fw-bold">${{ "%.2f"|format(report.total_revenue) }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success">{{ report.appointments_by_status.completed }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-warning">{{ report.appointments_by_status.scheduled }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-danger">{{ report.appointments_by_status.cancelled }}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service Categories -->
+            <div class="card shadow-lg mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-tags me-2"></i>Service Categories</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% set categories = {} %}
+                        {% for service in service_popularity %}
+                            {% if service.category not in categories %}
+                                {% set _ = categories.update({service.category: 0}) %}
+                            {% endif %}
+                            {% set _ = categories.update({service.category: categories[service.category] + service.appointment_count}) %}
+                        {% endfor %}
+                        
+                        {% for category, count in categories.items() %}
+                        <div class="col-md-3 mb-3">
+                            <div class="category-card text-center p-3 border rounded">
+                                <i class="fas fa-stethoscope fa-2x text-primary mb-2"></i>
+                                <h5 class="mb-1">{{ category }}</h5>
+                                <p class="text-muted mb-0">{{ count }} appointments</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-body text-center">
+                            <i class="fas fa-file-export fa-3x text-primary mb-3"></i>
+                            <h5>Export Reports</h5>
+                            <p class="text-muted">Generate detailed reports for analysis</p>
+                            <button class="btn btn-primary" onclick="exportReport()">
+                                <i class="fas fa-download me-2"></i>Export Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-body text-center">
+                            <i class="fas fa-bell fa-3x text-warning mb-3"></i>
+                            <h5>Send Notifications</h5>
+                            <p class="text-muted">Send reminders to patients</p>
+                            <a href="{{ url_for('main.admin_send_reminders') }}" class="btn btn-warning">
+                                <i class="fas fa-paper-plane me-2"></i>Send Reminders
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-body text-center">
+                            <i class="fas fa-chart-line fa-3x text-success mb-3"></i>
+                            <h5>Performance Insights</h5>
+                            <p class="text-muted">View detailed performance metrics</p>
+                            <button class="btn btn-success" onclick="showInsights()">
+                                <i class="fas fa-chart-bar me-2"></i>View Insights
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Insights Modal -->
+<div class="modal fade" id="insightsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title"><i class="fas fa-chart-line me-2"></i>Performance Insights</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="insightsContent">
+                    <!-- Insights will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-item h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.service-item .service-name {
+    font-weight: 500;
+}
+
+.service-item .service-count {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.category-card {
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.progress {
+    border-radius: 10px;
+}
+
+.progress-bar {
+    border-radius: 10px;
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function exportReport() {
+    // Create a simple CSV export
+    const csvContent = "data:text/csv;charset=utf-8," + 
+        "Month,Appointments,New Users,Revenue,Completed,Scheduled,Cancelled\n" +
+        {% for report in monthly_reports %}
+        "{{ report.month }}/{{ report.year }},{{ report.total_appointments }},{{ report.new_users }},{{ report.total_revenue }},{{ report.appointments_by_status.completed }},{{ report.appointments_by_status.scheduled }},{{ report.appointments_by_status.cancelled }}\n" +
+        {% endfor %};
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "clinic_report.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function showInsights() {
+    const modal = new bootstrap.Modal(document.getElementById('insightsModal'));
+    const content = document.getElementById('insightsContent');
+    
+    // Generate insights based on data
+    const insights = [
+        {
+            title: "Growth Trend",
+            content: "Your clinic has shown consistent growth with {{ clinic_stats.monthly_appointments }} appointments this month.",
+            icon: "fas fa-arrow-up",
+            color: "success"
+        },
+        {
+            title: "Completion Rate",
+            content: "{{ "%.1f"|format(clinic_stats.completion_rate) }}% completion rate indicates good patient follow-through.",
+            icon: "fas fa-check-circle",
+            color: "primary"
+        },
+        {
+            title: "Revenue Performance",
+            content: "Total revenue of ${{ "%.2f"|format(clinic_stats.total_revenue) }} shows strong financial performance.",
+            icon: "fas fa-dollar-sign",
+            color: "warning"
+        },
+        {
+            title: "Patient Retention",
+            content: "{{ clinic_stats.total_users }} registered users with {{ clinic_stats.total_appointments }} total appointments.",
+            icon: "fas fa-users",
+            color: "info"
+        }
+    ];
+    
+    content.innerHTML = insights.map(insight => `
+        <div class="alert alert-${insight.color} border-0 mb-3">
+            <div class="d-flex align-items-center">
+                <i class="${insight.icon} fa-2x me-3"></i>
+                <div>
+                    <h6 class="mb-1">${insight.title}</h6>
+                    <p class="mb-0">${insight.content}</p>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    modal.show();
+}
+
+// Add some animations
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate numbers on load
+    const numbers = document.querySelectorAll('.display-6');
+    numbers.forEach(number => {
+        const target = parseInt(number.textContent);
+        let current = 0;
+        const increment = target / 50;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            number.textContent = Math.round(current);
+        }, 50);
+    });
+});
+</script>
+{% endblock %} 

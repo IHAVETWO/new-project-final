@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}About Us - BrightSmile Dental Clinic{% endblock %}
+{% block meta %}
+<meta name="description" content="Learn about BrightSmile Dental Clinic, our philosophy, values, and our commitment to gentle, modern dental care for all ages.">
+<meta property="og:title" content="About Us - BrightSmile Dental Clinic">
+<meta property="og:description" content="Our story, philosophy, and commitment to your smile. Meet our founder and discover our journey.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/static/favicon.png">
+{% endblock %}
+{% block content %}
+<main aria-labelledby="about-title">
+<section class="hero hero-bg text-center" aria-label="About Hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 id="about-title" class="fade-in">About BrightSmile</h1>
+        <p class="fade-in delay-1">Our story, our philosophy, and our commitment to your smile.</p>
+    </div>
+</section>
+<section class="section about-section fade-up container py-5" aria-labelledby="philosophy-title">
+    <div class="row justify-content-center align-items-center flex-wrap-reverse mb-4">
+        <div class="col-12 col-md-6 d-flex justify-content-center mb-4 mb-md-0">
+            <img src="https://images.unsplash.com/photo-1520880867055-1e30d1cb001c?auto=format&fit=crop&w=600&q=80" alt="BrightSmile Clinic Philosophy" class="img-fluid rounded-4 shadow-lg" style="max-width:340px;">
+        </div>
+        <div class="col-12 col-md-6 text-center">
+            <h2 id="philosophy-title" class="section-title mb-3">Our Philosophy</h2>
+            <blockquote class="blockquote mx-auto p-3 rounded-3" style="background:rgba(230,240,255,0.5);max-width:420px;">
+                <span style="font-size:1.2rem;line-height:1.6;color:#2575fc;">We believe every smile is unique. Our mission is to provide gentle, modern dental care for all ages.</span><br>
+                <span class="founder d-block mt-3 fw-semibold" style="color:#6a11cb;">— Dr. Olivia Bennett, Founder &amp; Head Dentist</span>
+            </blockquote>
+            <p class="mt-4" style="font-size:1.1rem;color:#444;">BrightSmile Dental Clinic was founded with a vision to make dental care comfortable, modern, and accessible for everyone. Our team is dedicated to continuous learning and the latest technology, ensuring you always get the best care possible.</p>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center align-items-center my-4">
+        <div style="height:2px;width:60px;background:linear-gradient(90deg,#2575fc 0%,#6a11cb 100%);border-radius:2px;"></div>
+    </div>
+    <div class="row g-4 justify-content-center">
+        <div class="col-12 col-md-4">
+            <section class="about-values glassy-card h-100 text-center p-4">
+                <h3 id="values-title">Our Values</h3>
+                <ul class="list-unstyled mt-3">
+                    <li><b>Gentle Care:</b> We treat every patient with empathy and respect.</li>
+                    <li><b>Modern Technology:</b> We invest in the latest dental innovations.</li>
+                    <li><b>Transparency:</b> We explain every step and cost up front.</li>
+                    <li><b>Community:</b> We support local health and wellness initiatives.</li>
+                </ul>
+            </section>
+        </div>
+        <div class="col-12 col-md-4">
+            <section class="about-journey glassy-card h-100 text-center p-4">
+                <h3 id="journey-title">Our Journey</h3>
+                <ol class="text-start mx-auto" style="max-width:260px;">
+                    <li><b>2015:</b> BrightSmile founded by Dr. Bennett.</li>
+                    <li><b>2017:</b> Expanded to a full-service family clinic.</li>
+                    <li><b>2020:</b> Introduced digital x-rays and 3D scanning.</li>
+                    <li><b>2023:</b> Awarded "Best Dental Clinic" in the region.</li>
+                </ol>
+            </section>
+        </div>
+        <div class="col-12 col-md-4">
+            <section class="about-founder glassy-card h-100 text-center p-4 d-flex flex-column align-items-center justify-content-center">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80" alt="Dr. Olivia Bennett, Founder & Head Dentist" class="rounded-circle shadow mb-3" style="width:90px;height:90px;object-fit:cover;border:3px solid #fff;">
+                <h3 id="founder-title" style="color:#2575fc;">Dr. Olivia Bennett</h3>
+                <div class="mb-2" style="color:#6a11cb;font-weight:600;font-size:1rem;">Founder &amp; Head Dentist</div>
+                <p style="font-size:1.05rem;color:#444;">With 15+ years of experience, Dr. Bennett leads our clinic with a passion for gentle, patient-centered care and a love for the latest dental technology.</p>
+            </section>
+        </div>
+    </div>
+</section>
+<section class="section fade-up py-5" style="background:linear-gradient(90deg,#e3f0ff 0%,#f8fafc 100%);" aria-labelledby="cta-title">
+    <div class="container text-center">
+        <h2 id="cta-title" class="mb-4" style="color:#2575fc;font-size:2rem;">Ready to experience the BrightSmile difference?</h2>
+        <a href="{{ url_for('main.appointment') }}" class="btn btn-primary btn-lg px-5 py-3 shadow">Book Your Appointment</a>
+    </div>
+</section>
+</main>
+{% endblock %} 

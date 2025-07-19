@@ -1,0 +1,357 @@
+{% extends 'base.html' %}
+{% block title %}Navigation Guide - BrightSmile{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-primary">Site Navigation Guide</h1>
+                <p class="lead text-muted">Complete overview of all available pages and features</p>
+            </div>
+
+            <!-- Main Navigation -->
+            <div class="card shadow-lg mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-compass me-2"></i>Main Navigation</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-home text-primary me-2"></i>Home</h6>
+                                <p class="text-muted small">Main landing page with hero section and features overview</p>
+                                <a href="{{ url_for('main.home') }}" class="btn btn-sm btn-outline-primary">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-stethoscope text-primary me-2"></i>Services</h6>
+                                <p class="text-muted small">Overview of all dental services offered</p>
+                                <a href="{{ url_for('main.services') }}" class="btn btn-sm btn-outline-primary">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-info-circle text-primary me-2"></i>About</h6>
+                                <p class="text-muted small">Information about the clinic and our mission</p>
+                                <a href="{{ url_for('main.about') }}" class="btn btn-sm btn-outline-primary">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-users text-primary me-2"></i>Team</h6>
+                                <p class="text-muted small">Meet our dental professionals</p>
+                                <a href="{{ url_for('main.team') }}" class="btn btn-sm btn-outline-primary">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-newspaper text-primary me-2"></i>News</h6>
+                                <p class="text-muted small">Latest news and updates from the clinic</p>
+                                <a href="{{ url_for('main.news') }}" class="btn btn-sm btn-outline-primary">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-envelope text-primary me-2"></i>Contact</h6>
+                                <p class="text-muted small">Contact information and location details</p>
+                                <a href="{{ url_for('main.contact') }}" class="btn btn-sm btn-outline-primary">Visit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if current_user.is_authenticated %}
+            <!-- User Features -->
+            <div class="card shadow-lg mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-user me-2"></i>User Features (Logged In)</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-tachometer-alt text-success me-2"></i>Dashboard</h6>
+                                <p class="text-muted small">Main user dashboard with statistics and quick actions</p>
+                                <a href="{{ url_for('main.dashboard') }}" class="btn btn-sm btn-outline-success">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-user text-success me-2"></i>Profile</h6>
+                                <p class="text-muted small">Edit personal information and account settings</p>
+                                <a href="{{ url_for('main.profile') }}" class="btn btn-sm btn-outline-success">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-heartbeat text-success me-2"></i>Health Dashboard</h6>
+                                <p class="text-muted small">Comprehensive health overview and analytics</p>
+                                <a href="{{ url_for('main.health_dashboard') }}" class="btn btn-sm btn-outline-success">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-file-medical text-success me-2"></i>Medical History</h6>
+                                <p class="text-muted small">View and update medical records</p>
+                                <a href="{{ url_for('main.medical_history') }}" class="btn btn-sm btn-outline-success">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-calendar text-success me-2"></i>My Appointments</h6>
+                                <p class="text-muted small">View all past and upcoming appointments</p>
+                                <a href="{{ url_for('main.user_appointments') }}" class="btn btn-sm btn-outline-success">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-bell text-success me-2"></i>Notifications</h6>
+                                <p class="text-muted small">View all system notifications and alerts</p>
+                                <a href="{{ url_for('main.notifications') }}" class="btn btn-sm btn-outline-success">Visit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Smart Features -->
+            <div class="card shadow-lg mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-magic me-2"></i>Smart Features</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-calendar-plus text-info me-2"></i>Smart Appointment Scheduler</h6>
+                                <p class="text-muted small">AI-powered scheduling with conflict detection</p>
+                                <a href="{{ url_for('main.smart_appointment_scheduler') }}" class="btn btn-sm btn-outline-info">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-download text-info me-2"></i>Export My Data</h6>
+                                <p class="text-muted small">Download all your personal data as JSON</p>
+                                <a href="{{ url_for('main.export_user_data') }}" class="btn btn-sm btn-outline-info">Visit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if current_user.is_admin %}
+            <!-- Admin Features -->
+            <div class="card shadow-lg mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-cog me-2"></i>Admin Features</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-tachometer-alt text-warning me-2"></i>Admin Dashboard</h6>
+                                <p class="text-muted small">Main admin panel with overview statistics</p>
+                                <a href="{{ url_for('main.admin') }}" class="btn btn-sm btn-outline-warning">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-users text-warning me-2"></i>Manage Users</h6>
+                                <p class="text-muted small">View and manage all registered users</p>
+                                <a href="{{ url_for('main.admin_users') }}" class="btn btn-sm btn-outline-warning">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-calendar-check text-warning me-2"></i>Manage Appointments</h6>
+                                <p class="text-muted small">View and manage all clinic appointments</p>
+                                <a href="{{ url_for('main.admin_appointments') }}" class="btn btn-sm btn-outline-warning">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-chart-bar text-warning me-2"></i>Analytics Dashboard</h6>
+                                <p class="text-muted small">Basic analytics and statistics</p>
+                                <a href="{{ url_for('main.admin_analytics_dashboard') }}" class="btn btn-sm btn-outline-warning">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-chart-line text-warning me-2"></i>Advanced Analytics</h6>
+                                <p class="text-muted small">Advanced data processing and analytics</p>
+                                <a href="{{ url_for('main.advanced_analytics') }}" class="btn btn-sm btn-outline-warning">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-file-alt text-warning me-2"></i>Performance Report</h6>
+                                <p class="text-muted small">Detailed performance analysis and insights</p>
+                                <a href="{{ url_for('main.performance_report') }}" class="btn btn-sm btn-outline-warning">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-file-excel text-warning me-2"></i>Export Report</h6>
+                                <p class="text-muted small">Export comprehensive clinic report as Excel</p>
+                                <a href="{{ url_for('main.export_comprehensive_report') }}" class="btn btn-sm btn-outline-warning">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-bell text-warning me-2"></i>Send Reminders</h6>
+                                <p class="text-muted small">Send automated reminders to patients</p>
+                                <a href="{{ url_for('main.admin_send_reminders') }}" class="btn btn-sm btn-outline-warning">Visit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% else %}
+            <!-- Guest Features -->
+            <div class="card shadow-lg mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-user-plus me-2"></i>Guest Features</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-user-plus text-info me-2"></i>Register</h6>
+                                <p class="text-muted small">Create a new account to access all features</p>
+                                <a href="{{ url_for('main.register') }}" class="btn btn-sm btn-outline-info">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-sign-in-alt text-info me-2"></i>Login</h6>
+                                <p class="text-muted small">Sign in to your existing account</p>
+                                <a href="{{ url_for('main.login') }}" class="btn btn-sm btn-outline-info">Visit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-calendar-plus text-info me-2"></i>Book Appointment</h6>
+                                <p class="text-muted small">Schedule an appointment (basic form)</p>
+                                <a href="{{ url_for('main.appointment') }}" class="btn btn-sm btn-outline-info">Visit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- API Endpoints (for developers) -->
+            <div class="card shadow-lg mb-4">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0"><i class="fas fa-code me-2"></i>API Endpoints</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-calendar text-secondary me-2"></i>Available Slots</h6>
+                                <p class="text-muted small">GET /api/available-slots - Get available appointment times</p>
+                                <code class="small">/api/available-slots?date=2024-01-15&service_type=checkup</code>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-calendar-check text-secondary me-2"></i>Book Appointment</h6>
+                                <p class="text-muted small">POST /api/book-appointment - Book an appointment</p>
+                                <code class="small">POST /api/book-appointment (JSON data)</code>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-chart-bar text-secondary me-2"></i>User Analytics</h6>
+                                <p class="text-muted small">GET /api/user-analytics - Get user statistics</p>
+                                <code class="small">/api/user-analytics</code>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="nav-item-card">
+                                <h6><i class="fas fa-search text-secondary me-2"></i>Search Services</h6>
+                                <p class="text-muted small">GET /api/search-services - Search dental services</p>
+                                <code class="small">/api/search-services?q=cleaning</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Navigation -->
+            <div class="text-center">
+                <h4 class="text-primary mb-3">Quick Navigation</h4>
+                <div class="d-flex flex-wrap justify-content-center gap-2">
+                    <a href="{{ url_for('main.home') }}" class="btn btn-primary">
+                        <i class="fas fa-home me-2"></i>Back to Home
+                    </a>
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('main.dashboard') }}" class="btn btn-success">
+                            <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                        </a>
+                        <a href="{{ url_for('main.smart_appointment_scheduler') }}" class="btn btn-info">
+                            <i class="fas fa-calendar-plus me-2"></i>Smart Scheduler
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('main.register') }}" class="btn btn-success">
+                            <i class="fas fa-user-plus me-2"></i>Register
+                        </a>
+                        <a href="{{ url_for('main.login') }}" class="btn btn-info">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.nav-item-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1rem;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.nav-item-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background: white;
+}
+
+.nav-item-card h6 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.nav-item-card p {
+    margin-bottom: 1rem;
+}
+
+.nav-item-card code {
+    background: #e9ecef;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: #495057;
+}
+
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+</style>
+{% endblock %} 

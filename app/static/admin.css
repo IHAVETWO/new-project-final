@@ -1,0 +1,44 @@
+/* admin.css - Styles for admin dashboard and user management */ 
+
+/* Admin Navbar Dropdown Styling */
+
+/* Make the admin dropdown stand out */
+.navbar .dropdown-menu {
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  border: none;
+  min-width: 220px;
+}
+
+.navbar .dropdown-menu .dropdown-item {
+  font-weight: 500;
+  color: #2d3a4a;
+  padding: 12px 20px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.navbar .dropdown-menu .dropdown-item:hover,
+.navbar .dropdown-menu .dropdown-item:focus {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+/* Admin menu icon color */
+.navbar .fa-cog {
+  color: #1976d2;
+  font-size: 1.2em;
+}
+
+/* Highlight the Admin dropdown toggle */
+.navbar .nav-link.dropdown-toggle[aria-expanded="true"] {
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 8px;
+}
+
+/* Add a subtle border to the admin dropdown */
+.navbar .dropdown-menu {
+  border: 1px solid #e0e0e0;
+} 

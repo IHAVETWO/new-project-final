@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Health Dashboard | BrightSmile Dental{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-4 text-center">My Health Dashboard</h1>
+  <div class="row g-4 mb-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Health Score</h5>
+          <p class="display-6 text-success">95/100</p>
+          <div class="progress" style="height: 8px;">
+            <div class="progress-bar bg-success" style="width: 95%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Recommendations</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Schedule a cleaning in the next 3 months</li>
+            <li class="list-group-item">Continue daily flossing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Upcoming Appointments</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">July 15, 2025 - Cleaning</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row g-4">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Health Tips</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Brush twice a day with fluoride toothpaste</li>
+            <li class="list-group-item">Replace your toothbrush every 3 months</li>
+            <li class="list-group-item">Limit sugary snacks and drinks</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

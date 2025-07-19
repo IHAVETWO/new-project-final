@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Smart Appointment Scheduler{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+{% endblock %}
+{% block content %}
+<div class="container smart-scheduler py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm smart-scheduler-card">
+        <div class="card-body text-center">
+          <h1 class="display-5 mb-4 smart-scheduler-title"><i class="fas fa-magic me-2 text-info"></i>Smart Appointment Scheduler</h1>
+          <p class="lead">The smart appointment scheduling feature will be available soon. Stay tuned for intelligent scheduling and recommendations!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

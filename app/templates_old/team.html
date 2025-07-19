@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Our Team | BrightSmile Dental{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-4 text-center">Meet Our Team</h1>
+  <div class="row g-4 justify-content-center">
+    <!-- Example team member card, repeat for each member -->
+    <div class="col-md-4 col-lg-3">
+      <div class="card h-100 shadow-sm text-center">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="card-img-top rounded-circle mx-auto mt-4" alt="Dr. Anna Smith" style="width: 120px; height: 120px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title mb-1">Dr. Anna Smith</h5>
+          <p class="card-text text-muted mb-0">Chief Dentist</p>
+          <p class="card-text small">15+ years experience</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+      <div class="card h-100 shadow-sm text-center">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="card-img-top rounded-circle mx-auto mt-4" alt="Dr. John Lee" style="width: 120px; height: 120px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title mb-1">Dr. John Lee</h5>
+          <p class="card-text text-muted mb-0">Orthodontist</p>
+          <p class="card-text small">10+ years experience</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+      <div class="card h-100 shadow-sm text-center">
+        <img src="https://randomuser.me/api/portraits/women/65.jpg" class="card-img-top rounded-circle mx-auto mt-4" alt="Dr. Maria Gomez" style="width: 120px; height: 120px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title mb-1">Dr. Maria Gomez</h5>
+          <p class="card-text text-muted mb-0">Pediatric Dentist</p>
+          <p class="card-text small">8+ years experience</p>
+        </div>
+      </div>
+    </div>
+    <!-- Add more team member cards as needed -->
+  </div>
+</div>
+{% endblock %} 

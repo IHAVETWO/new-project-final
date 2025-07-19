@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+{% endblock %}
+{% block content %}
+<div class="container admin-dashboard">
+    <h1 class="admin-dashboard-title"><i class="fas fa-cog"></i> Admin Dashboard</h1>
+    <nav class="admin-nav mb-4">
+        <ul class="nav nav-pills justify-content-center gap-3">
+            <li class="nav-item"><a class="nav-link btn-admin" href="{{ url_for('main.admin_users')|default('') }}"><i class="fas fa-users"></i> Manage Users</a></li>
+            <li class="nav-item"><a class="nav-link btn-admin" href="{{ url_for('main.home')|default('') }}"><i class="fas fa-home"></i> Back to Home</a></li>
+        </ul>
+    </nav>
+    <section class="admin-content text-center mt-4">
+        <p class="lead">Welcome to the admin dashboard. Use the links above to manage users and other admin features.</p>
+    </section>
+</div>
+{% endblock %} 
