@@ -398,9 +398,6 @@ flask-mongoengine==1.0.0
 # API sorting
 flask-sqlalchemy==3.1.1
 
-# API search
-flask-whoosh==0.3.0
-
 # API caching
 flask-caching==2.1.0
 
