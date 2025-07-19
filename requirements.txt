@@ -345,8 +345,7 @@ pyotp==2.9.0
 # CAPTCHA support
 captcha==0.4
 
-# reCAPTCHA
-recaptcha==1.0.0
+# recaptcha==1.0.0
 
 # Social login
 social-auth-core==4.4.2
