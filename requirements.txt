@@ -464,8 +464,6 @@ flask-compress==1.14
 # API CORS
 flask-cors==4.0.0
 
-# API monitoring
-flask-monitoring-dashboard==3.0.0
 
 # API testing
 flask-testing==0.8.1
