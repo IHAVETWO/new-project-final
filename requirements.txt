@@ -413,9 +413,6 @@ flask-testing==0.8.1
 # API documentation
 flasgger==0.9.7.1
 
-# API health checks
-flask-healthcheck==1.3.3
-
 # API metrics
 flask-prometheus-metrics==1.0.0
 
